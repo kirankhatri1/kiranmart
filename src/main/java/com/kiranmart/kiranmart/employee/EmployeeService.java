@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class EmployeeService {
@@ -12,10 +14,20 @@ public class EmployeeService {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    void saveEmployee(Employee employee){
+    boolean saveEmployee(Employee employee){
         log.info("before saving employee");
-        employeeRepository.save(employee);
-        log.info("Employee saved successfully");
+        try{
+            employeeRepository.save(employee);
+            log.info("Employee saved successfully");
+            return true;
+        } catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    List<Employee> findAllEmployee(){
+        return (List<Employee>) employeeRepository.findAll();
     }
 
 
