@@ -2,10 +2,10 @@ package com.kiranmart.kiranmart.employee;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -31,5 +31,11 @@ public class EmployeeService {
     }
 
 
+    public Optional<Employee> findById(Long employeeId) {
+        return employeeRepository.findById(employeeId);
+    }
 
+    public void deleteEmployee(Long employeeId) {
+        employeeRepository.deleteById(employeeId);
+    }
 }

@@ -14,10 +14,14 @@ public interface EmployeeController {
     String loadViewIndex();
 
     @PostMapping(value = "saveupdate")
-    ResponseEntity<Response> saveOrUpdate(@ModelAttribute Employee employee,
-                                          @RequestParam(value = "id", required = false) Long id);
+    ResponseEntity<Response> saveOrUpdate(@ModelAttribute Employee employee);
 
-    @PostMapping(value = "find-all")
-    public ResponseEntity<Response> findAllData();
+    @GetMapping(value = "find-all")
+    ResponseEntity<Response> findAllData();
 
+    @GetMapping("find-by-id")
+    ResponseEntity<Response> findById(@RequestParam(value = "id") Long employeeId);
+
+    @GetMapping("delete")
+    ResponseEntity<Response> delete(@RequestParam(value = "id") Long employeeId);
 }
