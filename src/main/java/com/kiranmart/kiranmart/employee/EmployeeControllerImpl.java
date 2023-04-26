@@ -2,22 +2,29 @@ package com.kiranmart.kiranmart.employee;
 
 
 import com.kiranmart.kiranmart.util.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+@Slf4j
 public class EmployeeControllerImpl implements EmployeeController {
 
     @Autowired
     EmployeeService employeeService;
 
     @Override
-    public String loadViewIndex() {
+    public String loadViewIndex(Model model) {
+
+        List<Employee> employeeList = employeeService.findAllEmployee();
+
+        model.addAttribute("employeeList", employeeList);
         return "employee/index";
     }
 
@@ -26,6 +33,7 @@ public class EmployeeControllerImpl implements EmployeeController {
 
         boolean update = employee.getId() != null;
         String message = "";
+        employee.setCreatedDate(new Date());
         boolean success = employeeService.saveEmployee(employee);
 
         if(success){
@@ -36,6 +44,20 @@ public class EmployeeControllerImpl implements EmployeeController {
         } else message ="operation failed";
 
         return ResponseEntity.ok(new Response(success, message, employee));
+    }
+
+    @Override
+    public String addEmployee(Model model) {
+        return "employee/new-employee";
+    }
+
+    @Override
+    public String addEmployee(Employee employee) {
+        log.info("add employee page");
+        employee.setCreatedDate(new Date());
+        employeeService.saveEmployee(employee);
+        log.info("Employee added");
+        return "redirect:/employee";
     }
 
     public ResponseEntity<Response> findAllData() {

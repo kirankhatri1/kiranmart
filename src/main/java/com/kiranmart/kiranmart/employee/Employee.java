@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.util.Date;
+
 @Table(name="tbl_employee")
 @Entity
 @DynamicInsert
@@ -28,4 +30,10 @@ public class Employee {
     private String lastName;
 
     private String email;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false, name ="created_date")
+    private Date createdDate;
+
+
 }
