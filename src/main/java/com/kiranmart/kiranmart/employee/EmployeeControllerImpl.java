@@ -28,20 +28,24 @@ public class EmployeeControllerImpl implements EmployeeController {
         return "employee/index";
     }
 
-
     public ResponseEntity<Response> saveOrUpdate(Employee employee) {
 
         boolean update = employee.getId() != null;
         String message = "";
-        employee.setCreatedDate(new Date());
+
+        if(update){
+            employee.setModifiedDate(new Date());
+        } else
+            employee.setCreatedDate(new Date());
+
         boolean success = employeeService.saveEmployee(employee);
 
-        if(success){
-            if(update)
-                message = "Updated successfully";
-            else
+        if(success && update)
+            message = "Updated successfully";
+        else if(success)
             message = "Saved successfully";
-        } else message ="operation failed";
+        else
+            message = "operation Faield";
 
         return ResponseEntity.ok(new Response(success, message, employee));
     }
@@ -68,6 +72,25 @@ public class EmployeeControllerImpl implements EmployeeController {
 
         try{
             employeeList = employeeService.findAllEmployee();
+            success = true;
+            long dataCount = employeeList.size();
+            message = "Fetched " + dataCount + " data successfully.";
+        } catch (Exception e){
+            e.printStackTrace();
+            message = "Something went wrong";
+        }
+
+        return ResponseEntity.ok(new Response(success, message, employeeList));
+    }
+
+    @Override
+    public ResponseEntity<Response> findAllByStatus() {
+        boolean success = false;
+        String message;
+        List<Employee> employeeList = null;
+
+        try{
+            employeeList = employeeService.findAllByStatus();
             success = true;
             long dataCount = employeeList.size();
             message = "Fetched " + dataCount + " data successfully.";

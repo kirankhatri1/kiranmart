@@ -26,6 +26,9 @@ public interface EmployeeController {
     @GetMapping(value = "find-all")
     ResponseEntity<Response> findAllData();
 
+    @GetMapping(value = "find-all-by-status")
+    ResponseEntity<Response> findAllByStatus();
+
     @GetMapping("find-by-id")
     ResponseEntity<Response> findById(@RequestParam(value = "id") Long employeeId);
 

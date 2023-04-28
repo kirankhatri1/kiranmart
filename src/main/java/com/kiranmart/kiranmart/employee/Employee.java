@@ -1,5 +1,7 @@
 package com.kiranmart.kiranmart.employee;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.kiranmart.kiranmart.base.Model;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 @Table(name="tbl_employee")
@@ -16,12 +20,7 @@ import java.util.Date;
 @DynamicUpdate
 @Data
 @RequiredArgsConstructor
-public class Employee {
-
-
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Employee extends Model {
 
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
@@ -29,11 +28,23 @@ public class Employee {
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
+    // @Column(name = "full_name") if we need to persist in database
+    @Transient
+    private String fullName;
+
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+
+    public int getAge() {
+        LocalDate now = LocalDate.now();
+        Period period = Period.between(dateOfBirth, now);
+        return period.getYears();
+    }
+
     private String email;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false, updatable = false, name ="created_date")
-    private Date createdDate;
-
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
 }

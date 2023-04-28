@@ -5,6 +5,11 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
+
+import javax.xml.transform.Transformer;
+import java.util.List;
 
 public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom {
 
@@ -24,6 +29,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepositoryCustom {
         } catch (Exception ignored){
             return null;
         }
+    }
+
+    @Override
+    public List<Employee> findAllByStatus() {
+        String query = "select * from tbl_employee where status = 1 and deleted = 0";
+        Session session = (Session) entityManager.getDelegate();
+        return session.createNativeQuery(query).list();
+//                .setResultListTransformer(Transformers.aliasToBean(Employee.class)).list();
+
     }
 
   /*  @Override

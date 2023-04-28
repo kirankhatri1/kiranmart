@@ -30,12 +30,16 @@ public class EmployeeService {
         return (List<Employee>) employeeRepository.findAll();
     }
 
-
     public Optional<Employee> findById(Long employeeId) {
         return employeeRepository.findById(employeeId);
     }
 
     public void deleteEmployee(Long employeeId) {
         employeeRepository.deleteById(employeeId);
+    }
+
+    public List<Employee> findAllByStatus() {
+
+        return employeeRepository.findAllByStatus();
     }
 }
