@@ -32,6 +32,6 @@ public interface EmployeeController {
     @GetMapping("find-by-id")
     ResponseEntity<Response> findById(@RequestParam(value = "id") Long employeeId);
 
-    @GetMapping("delete")
-    ResponseEntity<Response> delete(@RequestParam(value = "id") Long employeeId);
+    @GetMapping("delete/{id}")
+    String delete(@PathVariable(value = "id") Long employeeId);
 }

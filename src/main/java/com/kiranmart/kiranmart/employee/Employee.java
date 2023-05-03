@@ -28,23 +28,10 @@ public class Employee extends Model {
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
 
-    // @Column(name = "full_name") if we need to persist in database
-    @Transient
-    private String fullName;
-
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-    public int getAge() {
-        LocalDate now = LocalDate.now();
-        Period period = Period.between(dateOfBirth, now);
-        return period.getYears();
-    }
-
     private String email;
 
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
 
 }

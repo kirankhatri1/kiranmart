@@ -59,7 +59,9 @@
             <td th:text="${employee.lastName}" />
             <td th:text="${employee.email}" />
             <td th:text="${employee.createdDate}" />
-            <td>...</td>
+            <td>
+                <a th:href="@{/employee/delete/{id}(id=${employee.id})}">delete</a>
+            </td>
         </tr>
         </tbody>
     </table>

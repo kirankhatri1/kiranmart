@@ -121,13 +121,13 @@ public class EmployeeControllerImpl implements EmployeeController {
     }
 
     @Override
-    public ResponseEntity<Response> delete(Long employeeId) {
+    public String delete(Long employeeId) {
 
         boolean success = false;
         String message;
 
         try {
-            employeeService.deleteEmployee(employeeId);
+            employeeService.deleteEmployeeById(employeeId);
             success = true;
             message = "Deleted employee successfully.";
         } catch (Exception e){
@@ -135,6 +135,6 @@ public class EmployeeControllerImpl implements EmployeeController {
             message = "Something went wrong";
         }
 
-        return ResponseEntity.ok(new Response(success, message, null));
+        return "redirect:/employee";
     }
 }
