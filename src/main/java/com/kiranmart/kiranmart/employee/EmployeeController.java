@@ -30,6 +30,7 @@ public interface EmployeeController {
     ResponseEntity<Response> findAllByStatus();
 
     @GetMapping("find-by-id")
+
     ResponseEntity<Response> findById(@RequestParam(value = "id") Long employeeId);
 
     @GetMapping("delete")
