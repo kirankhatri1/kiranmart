@@ -30,8 +30,8 @@ public class EmployeeService {
         return (List<Employee>) employeeRepository.findAll();
     }
 
-    public Optional<Employee> findById(Long employeeId) {
-        return Optional.ofNullable(employeeRepository.findEmployeeById(employeeId));
+    public Employee findById(Long employeeId) {
+        return employeeRepository.findEmployeeById(employeeId);
     }
 
     List<Employee> findAllByStatus(){

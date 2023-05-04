@@ -56,6 +56,14 @@ public class EmployeeControllerImpl implements EmployeeController {
     }
 
     @Override
+    public String editEmployee(Model model, Long employeeId) {
+
+        Employee employee = employeeService.findById(employeeId);
+        model.addAttribute("employee", employee);
+        return "employee/edit";
+    }
+
+    @Override
     public String addEmployee(Employee employee) {
         log.info("add employee page");
         employee.setCreatedDate(new Date());
@@ -106,7 +114,7 @@ public class EmployeeControllerImpl implements EmployeeController {
 
         boolean success = false;
         String message;
-        Optional<Employee> employee = null;
+        Employee employee = null;
 
         try {
             employee = employeeService.findById(employeeId);

@@ -20,6 +20,9 @@ public interface EmployeeController {
     @GetMapping("create")
     String addEmployee(Model model);
 
+    @GetMapping("edit/{id}")
+    String editEmployee(Model model, @PathVariable(value = "id") Long employeeId);
+
     @PostMapping("/create")
     public String addEmployee(@ModelAttribute Employee employee);
 
